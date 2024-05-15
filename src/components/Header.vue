@@ -10,43 +10,44 @@
     </header>
   </template>
   
-  <style lang="scss">
-  header {
+  <style lang="scss" scoped>
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #333;
+  color: white;
+
+  .logo {
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  nav ul {
+    list-style: none;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    background-color: #333;
+  }
+
+  nav li {
+    margin-left: 20px;
+  }
+
+  nav a {
     color: white;
-  
-    .logo {
-      font-size: 24px;
-      font-weight: bold;
-    }
-  
+    text-decoration: none;
+  }
+
+  @media screen and (max-width: 600px) {
     nav ul {
-      list-style: none;
-      display: flex;
+      flex-direction: column;
     }
-  
+
     nav li {
-      margin-left: 20px;
-    }
-  
-    nav a {
-      color: white;
-      text-decoration: none;
-    }
-  
-    @media screen and (max-width: 600px) {
-      nav ul {
-        flex-direction: column;
-      }
-  
-      nav li {
-        margin: 10px 0;
-      }
+      margin: 10px 0;
     }
   }
-  </style>
+}
+</style>
+
   
