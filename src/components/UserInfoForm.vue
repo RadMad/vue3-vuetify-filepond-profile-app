@@ -1,31 +1,31 @@
 <template>
   <form @submit.prevent="submitForm">
     <div>
-      <label for="firstName">First Name:</label>
-      <input id="firstName" type="text" v-model="formData.firstName" required />
+      <label for="firstName">First Name*</label>
+      <input id="firstName" type="text" v-model="formData.firstName" required maxlength="16"/>
     </div>
     <div>
-      <label for="lastName">Last Name:</label>
-      <input id="lastName" type="text" v-model="formData.lastName" required />
+      <label for="lastName">Last Name*</label>
+      <input id="lastName" type="text" v-model="formData.lastName" required maxlength="16"/>
     </div>
     <div>
-      <label for="email">Email:</label>
-      <input id="email" type="email" v-model="formData.email" required />
+      <label for="email">Email*</label>
+      <input id="email" type="email" v-model="formData.email" required maxlength="20"/>
     </div>
     <div>
-      <label for="phone">Phone:</label>
-      <input id="phone" type="tel" v-model="formData.phone" required />
+      <label for="phone">Phone</label>
+      <input id="phone" type="tel" v-model="formData.phone" pattern="[0-9]{9}" maxlength="9" placeholder="123456789"/>
     </div>
     <div>
-      <label for="birthday">Birthday:</label>
-      <input id="birthday" type="date" v-model="formData.birthday" required />
+      <label for="birthday">Birthday</label>
+      <input id="birthday" type="date" v-model="formData.birthday" min="1900-01-01" :max="todayDateFormatted"/>
     </div>
     <div>
-      <label for="about">About:</label>
-      <textarea id="about" v-model="formData.about"></textarea>
+      <label for="about">About</label>
+      <textarea id="about" v-model="formData.about" maxlength="200"></textarea>
     </div>
     <div>
-      <label for="avatar">Avatar:</label>
+      <label for="avatar">Avatar</label>
       <input id="avatar" type="file" accept="image/*" @change="handleAvatarChange" />
     </div>
     <button type="submit">Submit</button>
@@ -48,6 +48,8 @@ const formData = ref({
   avatar: null as File | null,
 });
 
+const todayDateFormatted = new Date().toISOString().split('T')[0];
+
 function submitForm() {
   store.commit('setFormData', formData.value);
 }
@@ -55,7 +57,11 @@ function submitForm() {
 function handleAvatarChange(event: Event) { // Change type to Event
   const file = (event.target as HTMLInputElement).files?.[0];
   if (file) {
-    formData.value.avatar = file;
+    if(file.size > 1024 * 1024) {
+       alert("File is too big!");
+    } else {
+      formData.value.avatar = file;
+    }    
   }
 }
 </script>
