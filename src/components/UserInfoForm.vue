@@ -24,10 +24,11 @@
       <label for="about">About</label>
       <textarea id="about" v-model="formData.about" maxlength="200"></textarea>
     </div>
-    <div>
-      <label for="avatar">Avatar</label>
-      <input id="avatar" type="file" accept="image/*" @change="handleAvatarChange" />
-    </div>
+    <file-pond
+      v-model:files="filePondFiles"
+      :options="filePondOptions"
+      @init="handleFilePondInit"
+    />
     <button type="submit">Submit</button>
   </form>
 </template>
@@ -35,6 +36,16 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useStore } from 'vuex';
+import vueFilePond from 'vue-filepond';
+import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
+import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
+
+// Import styles
+import 'filepond/dist/filepond.min.css';
+import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
+
+// Initialize FilePond
+const FilePond = vueFilePond(FilePondPluginImagePreview, FilePondPluginFileValidateType);
 
 const store = useStore();
 
@@ -48,21 +59,20 @@ const formData = ref({
   avatar: null as File | null,
 });
 
+const filePondFiles = ref<File[]>([]);
+const filePondOptions = {
+  allowMultiple: false,
+  maxFileSize: '1MB',
+};
+
 const todayDateFormatted = new Date().toISOString().split('T')[0];
 
 function submitForm() {
   store.commit('setFormData', formData.value);
 }
 
-function handleAvatarChange(event: Event) { // Change type to Event
-  const file = (event.target as HTMLInputElement).files?.[0];
-  if (file) {
-    if(file.size > 1024 * 1024) {
-       alert("File is too big!");
-    } else {
-      formData.value.avatar = file;
-    }    
-  }
+function handleFilePondInit() {
+  console.log('FilePond initialized');
 }
 </script>
 
