@@ -26,7 +26,9 @@
     </div>
     <file-pond
       v-model:files="filePondFiles"
-      :options="filePondOptions"
+      multiple="false"
+      accepted-file-types="image/*"
+      max-file-size="1MB"
       @init="handleFilePondInit"
     />
     <button type="submit">Submit</button>
@@ -39,13 +41,14 @@ import { useStore } from 'vuex';
 import vueFilePond from 'vue-filepond';
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
+import FilePondPluginFileValidateSize from 'filepond-plugin-file-validate-size';
 
 // Import styles
 import 'filepond/dist/filepond.min.css';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
 
 // Initialize FilePond
-const FilePond = vueFilePond(FilePondPluginImagePreview, FilePondPluginFileValidateType);
+const FilePond = vueFilePond(FilePondPluginImagePreview, FilePondPluginFileValidateType, FilePondPluginFileValidateSize);
 
 const store = useStore();
 
@@ -60,10 +63,6 @@ const formData = ref({
 });
 
 const filePondFiles = ref<File[]>([]);
-const filePondOptions = {
-  allowMultiple: false,
-  maxFileSize: '1MB',
-};
 
 const todayDateFormatted = new Date().toISOString().split('T')[0];
 
