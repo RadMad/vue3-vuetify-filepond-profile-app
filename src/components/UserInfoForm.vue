@@ -29,6 +29,9 @@
       multiple="false"
       accepted-file-types="image/*"
       max-file-size="1MB"
+      image-transform-output-quality="0.8"
+      image-transform-output-max-height="300"
+      image-transform-output-max-width="300"
       @init="handleFilePondInit"
     />
     <button type="submit">Submit</button>
@@ -42,13 +45,12 @@ import vueFilePond from 'vue-filepond';
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
 import FilePondPluginFileValidateSize from 'filepond-plugin-file-validate-size';
-
-// Import styles
+import FilePondPluginImageTransform from 'filepond-plugin-image-transform';
 import 'filepond/dist/filepond.min.css';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
 
 // Initialize FilePond
-const FilePond = vueFilePond(FilePondPluginImagePreview, FilePondPluginFileValidateType, FilePondPluginFileValidateSize);
+const FilePond = vueFilePond(FilePondPluginImagePreview, FilePondPluginFileValidateType, FilePondPluginFileValidateSize, FilePondPluginImageTransform);
 
 const store = useStore();
 
