@@ -40,8 +40,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useStore } from 'vuex';
+import { useRouter } from 'vue-router';
 import vueFilePond from 'vue-filepond';
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
@@ -53,13 +54,15 @@ import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css
 
 // Initialize FilePond
 const FilePond = vueFilePond(
-  FilePondPluginImagePreview, 
-  FilePondPluginFileValidateType, 
-  FilePondPluginFileValidateSize, 
-  FilePondPluginImageTransform, 
-  FilePondPluginFileEncode);
+  FilePondPluginImagePreview,
+  FilePondPluginFileValidateType,
+  FilePondPluginFileValidateSize,
+  FilePondPluginImageTransform,
+  FilePondPluginFileEncode
+);
 
 const store = useStore();
+const router = useRouter();
 
 const formData = ref({
   firstName: '',
@@ -75,12 +78,17 @@ const filePondFiles = ref<File[]>([]);
 
 const todayDateFormatted = new Date().toISOString().split('T')[0];
 
+onMounted(() => {
+  Object.assign(formData.value, store.state.formData);
+});
+
 function submitForm() {
   store.commit('setFormData', formData.value);
+  router.push({ path: '/view-profile' });
 }
 
 function onAddFile(error: Error, file: File) {
-  if(!error){
+  if (!error) {
     // @ts-ignore
     const base64String = file.getFileEncodeBase64String();
     formData.value.avatar = base64String;
