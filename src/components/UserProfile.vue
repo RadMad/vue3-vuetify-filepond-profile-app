@@ -26,7 +26,7 @@ const store = useStore();
 const formData = computed(() => store.state.formData);
 const avatarURL = computed(() => {
   if (formData.value.avatar) {
-    return URL.createObjectURL(formData.value.avatar);
+    return `data:image/jpeg;base64, ${formData.value.avatar}`;
   }
 });
 </script>

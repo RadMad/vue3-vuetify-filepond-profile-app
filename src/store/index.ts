@@ -10,7 +10,7 @@ interface State {
     phone: string;
     birthday: string;
     about: string;
-    avatar: File | null;
+    avatar: string;
   };
 }
 
@@ -23,7 +23,7 @@ export default createStore<State>({
       phone: '',
       birthday: '',
       about: '',
-      avatar: null,
+      avatar: '',
     },
   },
   mutations: {

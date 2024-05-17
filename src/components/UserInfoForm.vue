@@ -2,15 +2,15 @@
   <form @submit.prevent="submitForm" enctype="multipart/form-data">
     <div>
       <label for="firstName">First Name*</label>
-      <input id="firstName" type="text" v-model="formData.firstName" required maxlength="16"/>
+      <input id="firstName" type="text" v-model="formData.firstName" maxlength="16"/>
     </div>
     <div>
       <label for="lastName">Last Name*</label>
-      <input id="lastName" type="text" v-model="formData.lastName" required maxlength="16"/>
+      <input id="lastName" type="text" v-model="formData.lastName" maxlength="16"/>
     </div>
     <div>
       <label for="email">Email*</label>
-      <input id="email" type="email" v-model="formData.email" required maxlength="20"/>
+      <input id="email" type="email" v-model="formData.email" maxlength="20"/>
     </div>
     <div>
       <label for="phone">Phone</label>
@@ -26,6 +26,7 @@
     </div>
     <file-pond
       v-model:files="filePondFiles"
+      :allow-file-encode="true"
       multiple="false"
       accepted-file-types="image/*"
       max-file-size="1MB"
@@ -47,11 +48,17 @@ import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
 import FilePondPluginFileValidateSize from 'filepond-plugin-file-validate-size';
 import FilePondPluginImageTransform from 'filepond-plugin-image-transform';
+import FilePondPluginFileEncode from 'filepond-plugin-file-encode';
 import 'filepond/dist/filepond.min.css';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
 
 // Initialize FilePond
-const FilePond = vueFilePond(FilePondPluginImagePreview, FilePondPluginFileValidateType, FilePondPluginFileValidateSize, FilePondPluginImageTransform);
+const FilePond = vueFilePond(
+  FilePondPluginImagePreview, 
+  FilePondPluginFileValidateType, 
+  FilePondPluginFileValidateSize, 
+  FilePondPluginImageTransform, 
+  FilePondPluginFileEncode);
 
 const store = useStore();
 
@@ -62,7 +69,7 @@ const formData = ref({
   phone: '',
   birthday: '',
   about: '',
-  avatar: null as File | null,
+  avatar: '',
 });
 
 const filePondFiles = ref<File[]>([]);
@@ -79,7 +86,9 @@ function handleFilePondInit() {
 
 function onAddFile(error: Error, file: File) {
   if(!error){
-    formData.value.avatar = file;
+    // @ts-ignore
+    const base64String = file.getFileEncodeBase64String();
+    formData.value.avatar = base64String;
   }
 }
 </script>
