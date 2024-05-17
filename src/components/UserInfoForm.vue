@@ -33,7 +33,6 @@
       image-transform-output-quality="0.8"
       image-transform-output-max-height="300"
       image-transform-output-max-width="300"
-      @init="handleFilePondInit"
       @addfile="onAddFile"
     />
     <button type="submit">Submit</button>
@@ -78,10 +77,6 @@ const todayDateFormatted = new Date().toISOString().split('T')[0];
 
 function submitForm() {
   store.commit('setFormData', formData.value);
-}
-
-function handleFilePondInit() {
-  console.log('FilePond initialized');
 }
 
 function onAddFile(error: Error, file: File) {
