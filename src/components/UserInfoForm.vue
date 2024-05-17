@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="submitForm">
+  <form @submit.prevent="submitForm" enctype="multipart/form-data">
     <div>
       <label for="firstName">First Name*</label>
       <input id="firstName" type="text" v-model="formData.firstName" required maxlength="16"/>
@@ -33,6 +33,7 @@
       image-transform-output-max-height="300"
       image-transform-output-max-width="300"
       @init="handleFilePondInit"
+      @addfile="onAddFile"
     />
     <button type="submit">Submit</button>
   </form>
@@ -74,6 +75,12 @@ function submitForm() {
 
 function handleFilePondInit() {
   console.log('FilePond initialized');
+}
+
+function onAddFile(error: Error, file: File) {
+  if(!error){
+    formData.value.avatar = file;
+  }
 }
 </script>
 
