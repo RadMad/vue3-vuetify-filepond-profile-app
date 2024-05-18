@@ -10,7 +10,7 @@
         <p><strong>Last Name:</strong> {{ formData.lastName }}</p>
         <p><strong>Email:</strong> {{ formData.email }}</p>
         <p><strong>Phone:</strong> {{ formData.phone }}</p>
-        <p><strong>Birthday:</strong> {{ formData.birthday }}</p>
+        <p><strong>Birthday:</strong> {{ formatDate(formData.birthday) }}</p>
         <p><strong>About:</strong> {{ formData.about }}</p>
       </div>
     </div>
@@ -29,6 +29,12 @@ const avatarURL = computed(() => {
     return `data:image/jpeg;base64, ${formData.value.avatar}`;
   }
 });
+
+function formatDate(dateString) {
+  if (!dateString) return '';
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  return new Date(dateString).toLocaleDateString(undefined, options);
+}
 </script>
 
 <style lang="scss" scoped>

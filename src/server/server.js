@@ -13,7 +13,7 @@ let userProfile = {
   lastName: '',
   email: '',
   phone: '',
-  birthday: '',
+  birthday: null,
   about: '',
   avatar: '',
 };

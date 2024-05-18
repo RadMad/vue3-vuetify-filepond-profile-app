@@ -12,7 +12,7 @@ interface UserProfile {
   lastName: string;
   email: string;
   phone: string;
-  birthday: string;
+  birthday: Date;
   about: string;
   avatar: string;
 }
