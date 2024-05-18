@@ -78,12 +78,13 @@ const filePondFiles = ref<File[]>([]);
 
 const todayDateFormatted = new Date().toISOString().split('T')[0];
 
-onMounted(() => {
+onMounted(async () => {
+  await store.dispatch('fetchUserProfile');
   Object.assign(formData.value, store.state.formData);
 });
 
-function submitForm() {
-  store.commit('setFormData', formData.value);
+async function submitForm() {
+  await store.dispatch('saveUserProfile', formData.value);
   router.push({ path: '/view-profile' });
 }
 

@@ -1,4 +1,5 @@
 import { createStore } from 'vuex';
+import api from '../services/api';
 
 interface State {
   formData: {
@@ -37,6 +38,24 @@ export default createStore<State>({
     setFormData(state, data) {
       state.formData = data;
       saveState(state.formData);
+    },
+  },
+  actions: {
+    async fetchUserProfile({ commit }) {
+      try {
+        const response = await api.getUserProfile();
+        commit('setFormData', response.data);
+      } catch (error) {
+        console.error('Failed to fetch user profile:', error);
+      }
+    },
+    async saveUserProfile({ commit }, formData) {
+      try {
+        const response = await api.updateUserProfile(formData);
+        commit('setFormData', response.data);
+      } catch (error) {
+        console.error('Failed to save user profile:', error);
+      }
     },
   },
 });
