@@ -1,5 +1,3 @@
-// store/index.ts
-
 import { createStore } from 'vuex';
 
 interface State {
@@ -14,21 +12,31 @@ interface State {
   };
 }
 
+function loadState(): State['formData'] {
+  const state = sessionStorage.getItem('formData');
+  return state ? JSON.parse(state) : {
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    birthday: '',
+    about: '',
+    avatar: '',
+  };
+}
+
+function saveState(state: State['formData']) {
+  sessionStorage.setItem('formData', JSON.stringify(state));
+}
+
 export default createStore<State>({
   state: {
-    formData: {
-      firstName: '',
-      lastName: '',
-      email: '',
-      phone: '',
-      birthday: '',
-      about: '',
-      avatar: '',
-    },
+    formData: loadState(),
   },
   mutations: {
     setFormData(state, data) {
       state.formData = data;
+      saveState(state.formData);
     },
   },
 });
