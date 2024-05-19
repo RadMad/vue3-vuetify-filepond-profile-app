@@ -9,3 +9,11 @@
     </v-toolbar-items>
   </v-app-bar>
 </template>
+
+<style scoped>
+@media screen and (max-width: 500px) {
+  .v-toolbar-title {
+    display: none;
+  }
+}
+</style>

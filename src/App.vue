@@ -27,4 +27,14 @@ import Footer from './components/Footer.vue';
 .filepond-container, .filepond-container label {
   cursor: pointer !important;
 }
+
+pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+html { 
+  overflow-y: auto !important; 
+}
 </style>

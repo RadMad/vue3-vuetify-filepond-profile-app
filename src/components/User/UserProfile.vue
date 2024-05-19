@@ -7,41 +7,37 @@
             <h2>User Profile</h2>
           </v-card-title>
           <v-divider></v-divider>
-          <v-card-text>
-            <v-row>
-              <v-col>
-                <v-list dense>
-                  <v-list-item>
-                    <v-list-item-title><strong>First Name:</strong> {{ formData.firstName }}</v-list-item-title>                   
-                  </v-list-item>
-                  <v-list-item>
-                    <v-list-item-title><strong>Last Name:</strong> {{ formData.lastName }}</v-list-item-title>                    
-                  </v-list-item>
-                  <v-list-item>                    
-                    <v-list-item-title><strong>Email:</strong> {{ formData.email }}</v-list-item-title>                    
-                  </v-list-item>
-                  <v-list-item>                    
-                    <v-list-item-title><strong>Phone:</strong> {{ formData.phone }}</v-list-item-title>                    
-                  </v-list-item>
-                  <v-list-item>                    
-                    <v-list-item-title><strong>Birthday:</strong> {{ formatDate(formData.birthday) }}</v-list-item-title>                    
-                  </v-list-item>
-                </v-list>
-              </v-col>
-              <div class="avatar-container">
-                <v-avatar size="192">
-                  <img :src="avatarURL" alt="Avatar" :width="192" />
-                </v-avatar>
-              </div>
-            </v-row>
-            <v-divider class="my-4"></v-divider>
-            <v-row>
-              <v-col cols="12">
-                <h3 class="mb-3">About:</h3>
-                <p>{{ formData.about }}</p>
-              </v-col>
-            </v-row>
+          <v-card-text class="profile-container">
+            <div class="avatar-container">
+              <v-avatar size="192">
+                <img :src="avatarURL" alt="Avatar" :width="192" />
+              </v-avatar>
+            </div>
+            <div class="fields-container">
+              <v-list dense>
+                <v-list-item>
+                  <v-list-item-title><strong>First Name:</strong> {{ formData.firstName }}</v-list-item-title>                   
+                </v-list-item>
+                <v-list-item>
+                  <v-list-item-title><strong>Last Name:</strong> {{ formData.lastName }}</v-list-item-title>                    
+                </v-list-item>
+                <v-list-item>                    
+                  <v-list-item-title><strong>Email:</strong> {{ formData.email }}</v-list-item-title>                    
+                </v-list-item>
+                <v-list-item>                    
+                  <v-list-item-title><strong>Phone:</strong> {{ formData.phone }}</v-list-item-title>                    
+                </v-list-item>
+                <v-list-item>                    
+                  <v-list-item-title><strong>Birthday:</strong> {{ formatDate(formData.birthday) }}</v-list-item-title>                    
+                </v-list-item>
+              </v-list>
+            </div>
           </v-card-text>
+          <v-divider class="my-4"></v-divider>
+          <v-card-text>
+            <h3 class="mb-3">About:</h3>
+            <pre>{{ formData.about }}</pre>
+          </v-card-text>          
         </v-card>
       </v-col>
     </v-row>
@@ -70,9 +66,41 @@ function formatDate(dateString: string) {
 </script>
 
 <style scoped>
+.profile-container {
+  display: flex;
+  flex-direction: column;
+}
+
 .avatar-container {
   margin: auto;
-  margin-left: auto;
-  margin-right: 16px;
+}
+
+.fields-container {
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (max-width: 600px) {
+  .avatar-container {
+    margin-bottom: 16px;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .profile-container {
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .avatar-container {
+    order: 2;
+    margin-right: 16px;
+    margin-left: 16px;
+  }
+
+  .fields-container {
+    order: 1;
+    flex-grow: 1;
+  }
 }
 </style>
