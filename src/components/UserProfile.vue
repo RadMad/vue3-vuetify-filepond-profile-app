@@ -78,15 +78,6 @@ function formatDate(dateString: string) {
 </script>
 
 <style scoped>
-.v-card, .v-avatar {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-
-.v-list-item {
-  padding-inline: 0 !important;
-}
-
 .avatar-container {
   margin: auto;
   margin-left: auto;

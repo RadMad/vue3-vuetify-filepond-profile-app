@@ -14,3 +14,17 @@
 import Header from './components/Header.vue';
 import Footer from './components/Footer.vue';
 </script>
+
+<style>
+.v-card, .v-avatar {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+.v-list-item {
+  padding-inline: 0 !important;
+}
+
+.filepond-container, .filepond-container label {
+  cursor: pointer !important;
+}
+</style>
