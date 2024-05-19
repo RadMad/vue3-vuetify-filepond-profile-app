@@ -16,19 +16,19 @@
             <div class="fields-container">
               <v-list dense>
                 <v-list-item>
-                  <v-list-item-title><strong>First Name:</strong> {{ formData.firstName }}</v-list-item-title>                   
+                  <v-list-item-title><strong>First Name:</strong> {{ formData.firstName }}</v-list-item-title>
                 </v-list-item>
                 <v-list-item>
-                  <v-list-item-title><strong>Last Name:</strong> {{ formData.lastName }}</v-list-item-title>                    
+                  <v-list-item-title><strong>Last Name:</strong> {{ formData.lastName }}</v-list-item-title>
                 </v-list-item>
-                <v-list-item>                    
-                  <v-list-item-title><strong>Email:</strong> {{ formData.email }}</v-list-item-title>                    
+                <v-list-item>
+                  <v-list-item-title><strong>Email:</strong> {{ formData.email }}</v-list-item-title>
                 </v-list-item>
-                <v-list-item>                    
-                  <v-list-item-title><strong>Phone:</strong> {{ formData.phone }}</v-list-item-title>                    
+                <v-list-item>
+                  <v-list-item-title><strong>Phone:</strong> {{ formData.phone }}</v-list-item-title>
                 </v-list-item>
-                <v-list-item>                    
-                  <v-list-item-title><strong>Birthday:</strong> {{ formatDate(formData.birthday) }}</v-list-item-title>                    
+                <v-list-item>
+                  <v-list-item-title><strong>Birthday:</strong> {{ formatDate(formData.birthday) }}</v-list-item-title>
                 </v-list-item>
               </v-list>
             </div>
@@ -37,7 +37,7 @@
           <v-card-text>
             <h3 class="mb-3">About:</h3>
             <pre>{{ formData.about }}</pre>
-          </v-card-text>          
+          </v-card-text>
         </v-card>
       </v-col>
     </v-row>
@@ -45,7 +45,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
 import { useStore } from 'vuex';
 
 const store = useStore();
@@ -63,6 +63,10 @@ function formatDate(dateString: string) {
   const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
   return new Date(dateString).toLocaleDateString(undefined, options);
 }
+
+onMounted(() => {
+  store.dispatch('fetchUserProfile');
+});
 </script>
 
 <style scoped>

@@ -108,7 +108,7 @@ onMounted(async () => {
 });
 
 async function submitForm() {
-    // @ts-ignore
+  // @ts-ignore
   formData.value.birthday = document.getElementById('birthday').value;
   await store.dispatch('saveUserProfile', formData.value);
   router.push({ path: '/view-profile' });
