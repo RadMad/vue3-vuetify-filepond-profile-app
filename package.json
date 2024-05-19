@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@mdi/font": "^7.4.47",
     "axios": "^1.6.8",
     "filepond": "^4.31.1",
     "filepond-plugin-file-encode": "^2.1.14",

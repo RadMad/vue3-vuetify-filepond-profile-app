@@ -8,4 +8,4 @@
       <v-btn variant="text" to="/view-profile">View Profile</v-btn>
     </v-toolbar-items>
   </v-app-bar>
-</template>  
+</template>

@@ -20,6 +20,7 @@
               <v-date-input
                 v-model="formData.birthday"
                 label="Birthday"
+                prepend-icon=""
                 :min="minDate"
                 :max="todayDateFormatted"
               ></v-date-input>

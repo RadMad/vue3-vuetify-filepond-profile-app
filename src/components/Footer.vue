@@ -1,9 +1,5 @@
 <template>
-  <v-footer
-    color="primary"
-    app
-    dark
-  >
+  <v-footer app color="primary" dark>
     <v-container>
       <v-row>
         <v-col>
