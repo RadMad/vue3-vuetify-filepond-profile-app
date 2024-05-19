@@ -12,27 +12,19 @@
               <v-col>
                 <v-list dense>
                   <v-list-item>
-                      <v-list-item-title><strong>First Name:</strong> {{ formData.firstName }}</v-list-item-title>
-                   
+                    <v-list-item-title><strong>First Name:</strong> {{ formData.firstName }}</v-list-item-title>                   
                   </v-list-item>
                   <v-list-item>
-                      <v-list-item-title><strong>Last Name:</strong> {{ formData.lastName }}</v-list-item-title>
-                    
+                    <v-list-item-title><strong>Last Name:</strong> {{ formData.lastName }}</v-list-item-title>                    
                   </v-list-item>
-                  <v-list-item>
-                    
-                      <v-list-item-title><strong>Email:</strong> {{ formData.email }}</v-list-item-title>
-                    
+                  <v-list-item>                    
+                    <v-list-item-title><strong>Email:</strong> {{ formData.email }}</v-list-item-title>                    
                   </v-list-item>
-                  <v-list-item>
-                    
-                      <v-list-item-title><strong>Phone:</strong> {{ formData.phone }}</v-list-item-title>
-                    
+                  <v-list-item>                    
+                    <v-list-item-title><strong>Phone:</strong> {{ formData.phone }}</v-list-item-title>                    
                   </v-list-item>
-                  <v-list-item>
-                    
-                      <v-list-item-title><strong>Birthday:</strong> {{ formatDate(formData.birthday) }}</v-list-item-title>
-                    
+                  <v-list-item>                    
+                    <v-list-item-title><strong>Birthday:</strong> {{ formatDate(formData.birthday) }}</v-list-item-title>                    
                   </v-list-item>
                 </v-list>
               </v-col>

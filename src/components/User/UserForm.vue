@@ -29,19 +29,20 @@
                   <v-textarea v-model="formData.about" label="About" maxlength="1000"></v-textarea>
                 </v-col>
                 <v-col cols="12">
-                  <div class="filepond-container"><file-pond
-                    v-model:files="filePondFiles"
-                    :allow-file-encode="true"
-                    label-idle="Click or drag HERE to upload avatar"
-                    multiple="false"
-                    accepted-file-types="image/jpeg"
-                    max-file-size="1MB"
-                    image-transform-output-quality="0.8"
-                    image-transform-output-max-height="300"
-                    image-transform-output-max-width="300"
-                    @addfile="onAddFile"
-                  /></div>
-                  
+                  <div class="filepond-container">
+                    <file-pond
+                      v-model:files="filePondFiles"
+                      :allow-file-encode="true"
+                      label-idle="Click or drag HERE to upload avatar"
+                      multiple="false"
+                      accepted-file-types="image/jpeg"
+                      max-file-size="1MB"
+                      image-transform-output-quality="0.8"
+                      image-transform-output-max-height="300"
+                      image-transform-output-max-width="300"
+                      @addfile="onAddFile"
+                    />
+                  </div>                  
                 </v-col>
                 <v-col cols="12">
                   <v-btn :disabled="!isFormValid" type="submit" color="primary">Submit</v-btn>
@@ -60,7 +61,7 @@ import moment from 'moment';
 import { ref, onMounted, watch } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
-import { setupFilePond } from '../plugins/filePondSetup';
+import { setupFilePond } from '../../plugins/filePondSetup';
 
 const FilePond = setupFilePond();
 
