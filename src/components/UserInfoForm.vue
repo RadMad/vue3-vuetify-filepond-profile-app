@@ -22,7 +22,7 @@
               <v-text-field v-model="formData.phone" label="Phone" pattern="[0-9]{9}" maxlength="9" placeholder="123456789" :rules="[rules.phone]"></v-text-field>
             </v-col>
             <v-col cols="12">
-              <v-date-input v-model="formData.birthday" label="Birthday" maxlength="10" prepend-icon="" :min="minDate" :max="todayDateFormatted" :rules="[rules.birthday]"></v-date-input>
+              <v-date-input v-model="formData.birthday" id="birthday" label="Birthday" maxlength="10" prepend-icon="" :min="minDate" :max="todayDateFormatted" :rules="[rules.birthday]"></v-date-input>
             </v-col>
             <v-col cols="12">
               <v-textarea v-model="formData.about" label="About" maxlength="1000"></v-textarea>
@@ -116,6 +116,8 @@ onMounted(async () => {
 });
 
 async function submitForm() {
+    // @ts-ignore
+  formData.value.birthday = document.getElementById('birthday').value;
   await store.dispatch('saveUserProfile', formData.value);
   router.push({ path: '/view-profile' });
 }
