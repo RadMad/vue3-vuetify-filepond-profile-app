@@ -7,15 +7,13 @@
     </v-row>
     <v-row>
       <v-col cols="12">
-        <v-form @submit.prevent="submitForm" enctype="multipart/form-data" ref="form"
-      v-model="isFormValid"
-      lazy-validation>
+        <v-form @submit.prevent="submitForm" enctype="multipart/form-data" ref="form" v-model="isFormValid" lazy-validation>
           <v-row>
             <v-col cols="12" sm="6">
-              <v-text-field v-model="formData.firstName" label="First Name*" maxlength="16" required :rules="[rules.required]"></v-text-field>
+              <v-text-field v-model="formData.firstName" label="First Name*" maxlength="16" required :rules="[rules.required, rules.noEmptySpaces]"></v-text-field>
             </v-col>
             <v-col cols="12" sm="6">
-              <v-text-field v-model="formData.lastName" label="Last Name*" maxlength="16" required :rules="[rules.required]"></v-text-field>
+              <v-text-field v-model="formData.lastName" label="Last Name*" maxlength="16" required :rules="[rules.required, rules.noEmptySpaces]"></v-text-field>
             </v-col>
             <v-col cols="12">
               <v-text-field v-model="formData.email" label="Email*" maxlength="20" required :rules="[rules.required, rules.email]"></v-text-field>
@@ -24,14 +22,7 @@
               <v-text-field v-model="formData.phone" label="Phone" pattern="[0-9]{9}" maxlength="9" placeholder="123456789" :rules="[rules.phone]"></v-text-field>
             </v-col>
             <v-col cols="12">
-              <v-date-input
-                v-model="formData.birthday"
-                label="Birthday"
-                prepend-icon=""
-                :min="minDate"
-                :max="todayDateFormatted"
-                :rules="[rules.birthday]"
-              ></v-date-input>
+              <v-date-input v-model="formData.birthday" label="Birthday" maxlength="10" prepend-icon="" :min="minDate" :max="todayDateFormatted" :rules="[rules.birthday]"></v-date-input>
             </v-col>
             <v-col cols="12">
               <v-textarea v-model="formData.about" label="About" maxlength="1000"></v-textarea>
@@ -61,7 +52,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import moment from 'moment';
+import { ref, onMounted, watch } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 import vueFilePond from 'vue-filepond';
@@ -89,21 +81,28 @@ const formData = ref({
   lastName: '',
   email: '',
   phone: '',
-  birthday: null,
+  birthday: '',
   about: '',
   avatar: '',
 });
 
 const filePondFiles = ref<File[]>([]);
 
-const todayDateFormatted = new Date().toISOString().split('T')[0];
+const todayDateFormatted = moment().toISOString().split('T')[0];
 const minDate = '1900-01-01';
 
 const rules = {
   required: (value: string) => !!value || 'This field is required.',
+  noEmptySpaces: (value: string) => value.trim().length > 0 || 'This field cannot be just spaces.',
   email: (value: string) => /.+@.+\..+/.test(value) || 'E-mail must be valid.',
-  phone: (value: string) => /^[0-9]{9}$/.test(value) || 'Phone must be 9 digits long.',
-  birthday: (value: string) => /^\d{2}\/\d{2}\/\d{4}$/.test(value) || 'Birthday must be in the format mm/dd/yyyy.',
+  phone: (value: string) => value === '' || /^[0-9]{9}$/.test(value) || 'Phone must be 9 digits long.',
+  birthday: (value: string) => {
+    if (!value) return true;
+    const date = moment(value, "MM/DD/YYYY", true);
+    if (!date.isValid()) return 'Birthday must be in "MM/DD/YYYY" format.';
+    if (date.isBefore(minDate) || date.isAfter(todayDateFormatted)) return `Birthday must be between ${moment(minDate).format("MM/DD/YYYY")} and ${moment(todayDateFormatted).format("MM/DD/YYYY")}.`;
+    return true;
+  },
 };
 
 const isFormValid = ref(false);
@@ -113,6 +112,7 @@ onMounted(async () => {
   const userProfile = store.state.formData;
   userProfile.birthday = userProfile.birthday ? new Date(userProfile.birthday) : null;
   Object.assign(formData.value, userProfile);
+  validateForm();
 });
 
 async function submitForm() {
@@ -127,4 +127,17 @@ function onAddFile(error: Error, file: File) {
     formData.value.avatar = base64String;
   }
 }
+
+function validateForm() {
+  isFormValid.value = true;
+  if (!(rules.required(formData.value.firstName) === true && rules.noEmptySpaces(formData.value.firstName) === true && rules.required(formData.value.lastName) === true && rules.noEmptySpaces(formData.value.lastName) === true && rules.required(formData.value.email) === true && rules.email(formData.value.email) === true)) {
+    isFormValid.value = false;
+    return;
+  }
+  if (!((formData.value.phone === '' || rules.phone(formData.value.phone) === true) && (formData.value.birthday === null || rules.birthday(formData.value.birthday) === true))) {
+    isFormValid.value = false;
+  }
+}
+
+watch(() => formData.value, validateForm, { deep: true });
 </script>
