@@ -16,16 +16,8 @@ import Footer from './components/Footer.vue';
 </script>
 
 <style>
-.v-card, .v-avatar {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
-}
-
-.v-list-item {
-  padding-inline: 0 !important;
-}
-
-.filepond-container, .filepond-container label {
-  cursor: pointer !important;
+html { 
+  overflow-y: auto !important; 
 }
 
 pre {
@@ -34,7 +26,25 @@ pre {
   overflow-wrap: break-word;
 }
 
-html { 
-  overflow-y: auto !important; 
+.filepond-container, .filepond-container label {
+  cursor: pointer !important;
+}
+
+.v-card, .v-avatar {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+.v-list-item {
+  padding-inline: 0 !important;
+}
+
+.v-list-item-title {
+  white-space: normal !important;
+}
+
+@media screen and (max-width: 500px) {
+  .v-toolbar-title {
+    display: none;
+  }
 }
 </style>

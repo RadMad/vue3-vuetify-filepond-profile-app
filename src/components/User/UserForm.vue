@@ -11,13 +11,13 @@
             <v-form @submit.prevent="submitForm" enctype="multipart/form-data" ref="form" v-model="isFormValid" lazy-validation>
               <v-row>
                 <v-col cols="12" sm="6">
-                  <v-text-field v-model="formData.firstName" label="First Name*" maxlength="16" required :rules="[rules.required, rules.noEmptySpaces]"></v-text-field>
+                  <v-text-field v-model="formData.firstName" label="First Name*" maxlength="20" required :rules="[rules.required, rules.noEmptySpaces]"></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="6">
-                  <v-text-field v-model="formData.lastName" label="Last Name*" maxlength="16" required :rules="[rules.required, rules.noEmptySpaces]"></v-text-field>
+                  <v-text-field v-model="formData.lastName" label="Last Name*" maxlength="20" required :rules="[rules.required, rules.noEmptySpaces]"></v-text-field>
                 </v-col>
                 <v-col cols="12">
-                  <v-text-field v-model="formData.email" label="Email*" maxlength="20" required :rules="[rules.required, rules.email]"></v-text-field>
+                  <v-text-field v-model="formData.email" label="Email*" maxlength="30" required :rules="[rules.required, rules.email]"></v-text-field>
                 </v-col>
                 <v-col cols="12">
                   <v-text-field v-model="formData.phone" label="Phone" pattern="[0-9]{9}" maxlength="9" placeholder="123456789" :rules="[rules.phone]"></v-text-field>

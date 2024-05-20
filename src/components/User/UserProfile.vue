@@ -16,19 +16,34 @@
             <div class="fields-container">
               <v-list dense>
                 <v-list-item>
-                  <v-list-item-title><strong>First Name:</strong> {{ formData.firstName }}</v-list-item-title>
+                  <v-list-item-title>
+                    <span class="font-weight-bold">First Name: </span>
+                    <span>{{ formData.firstName }}</span>
+                  </v-list-item-title>
                 </v-list-item>
                 <v-list-item>
-                  <v-list-item-title><strong>Last Name:</strong> {{ formData.lastName }}</v-list-item-title>
+                  <v-list-item-title>
+                    <span class="font-weight-bold">Last Name: </span>
+                    <span>{{ formData.lastName }}</span>
+                  </v-list-item-title>
                 </v-list-item>
                 <v-list-item>
-                  <v-list-item-title><strong>Email:</strong> {{ formData.email }}</v-list-item-title>
+                  <v-list-item-title>
+                    <span class="font-weight-bold">Email: </span>
+                    <span>{{ formData.email }}</span>
+                  </v-list-item-title>
                 </v-list-item>
                 <v-list-item>
-                  <v-list-item-title><strong>Phone:</strong> {{ formData.phone }}</v-list-item-title>
+                  <v-list-item-title>
+                    <span class="font-weight-bold">Phone: </span>
+                    <span>{{ formData.phone }}</span>
+                  </v-list-item-title>
                 </v-list-item>
                 <v-list-item>
-                  <v-list-item-title><strong>Birthday:</strong> {{ formatDate(formData.birthday) }}</v-list-item-title>
+                  <v-list-item-title>
+                    <span class="font-weight-bold">Birthday: </span>
+                    <span>{{ formatDate(formData.birthday) }}</span>
+                  </v-list-item-title>
                 </v-list-item>
               </v-list>
             </div>
@@ -70,18 +85,13 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.profile-container {
+.profile-container, .fields-container {
   display: flex;
   flex-direction: column;
 }
 
 .avatar-container {
   margin: auto;
-}
-
-.fields-container {
-  display: flex;
-  flex-direction: column;
 }
 
 @media screen and (max-width: 600px) {
